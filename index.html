@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jarvis AI Presentation</title>
+
+<!-- Tailwind + Fonts + Icons -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Three.js + Vanta -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+
+<!-- QRCode JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+<style>
+body {margin:0; padding:0; font-family:'Rajdhani', sans-serif; overflow-y: scroll; scroll-behavior: smooth; background-color:#050a14; color:#e0f7fa;}
+.slides-wrapper {scroll-snap-type: y mandatory; overflow-y: scroll;}
+.slide-container {scroll-snap-align: start; width:100%; height:100vh; display:flex; flex-direction:column; position:relative;}
+#vanta-canvas {position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; opacity:0.6;}
+.overlay {position:absolute; top:0; left:0; width:100%; height:100%; background-color: rgba(5,10,20,0.85); z-index:1;}
+.content-wrapper {position: relative; z-index: 10; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; text-align:center;}
+.page-title {font-family:'Orbitron', sans-serif; font-size:4rem; color:#fff; margin-bottom:25px; text-transform:uppercase; text-shadow:0 0 15px rgba(0,255,255,0.5);}
+.page-subtitle {font-size:2rem; color:#bae6fd; margin-bottom:50px;}
+.feature-list {text-align:left; max-width:800px; margin-top:30px;}
+.feature-item {margin-bottom:16px; font-size:1.5rem; color:#e0f7fa;}
+.feature-item i {color:#00e5ff; margin-right:10px;}
+.qr-code {margin-top:20px; width:120px; height:120px; background:white; border-radius:8px;}
+/* Slide titles hover */
+.page-title:hover {
+  text-shadow: 0 0 20px #00e5ff, 0 0 40px #38bdf8;
+  transition: all 0.3s ease-in-out;
+  cursor: default;
+}
+
+/* Feature items hover */
+.feature-item {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.feature-item i {
+  transition: all 0.3s ease;
+}
+.feature-item:hover {
+  transform: scale(1.05);
+  color: #38bdf8;
+  text-shadow: 0 0 8px #38bdf8, 0 0 16px #00e5ff;
+}
+.feature-item:hover i {
+  transform: rotate(20deg);
+  filter: drop-shadow(0 0 8px #00e5ff);
+}
+
+/* Jarvis orb hover */
+.jarvis-orb:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 50px rgba(56,189,248,0.6), inset 0 0 30px rgba(56,189,248,0.6);
+  transition: all 0.4s ease-in-out;
+}
+
+/* QR code hover */
+.qr-code:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px #00e5ff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Fade-in animation for feature items */
+.feature-item {
+  opacity: 0;
+  animation: fadeInUp 0.6s forwards;
+}
+.feature-item:nth-child(1){animation-delay:0.2s;}
+.feature-item:nth-child(2){animation-delay:0.4s;}
+.feature-item:nth-child(3){animation-delay:0.6s;}
+.feature-item:nth-child(4){animation-delay:0.8s;}
+.feature-item:nth-child(5){animation-delay:1s;}
+.feature-item:nth-child(6){animation-delay:1.2s;}
+
+@keyframes fadeInUp {
+  0% {opacity:0; transform: translateY(20px);}
+  100% {opacity:1; transform: translateY(0);}
+}
+
+</style>
+</head>
+<body>
+
+<div id="vanta-canvas"></div>
+
+<div class="slides-wrapper">
+
+  <!-- Slide 1 – Cover -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <div class="jarvis-orb" style="width:150px;height:150px;background:rgba(56,189,248,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:25px;box-shadow:0 0 30px rgba(56,189,248,0.4), inset 0 0 20px rgba(56,189,248,0.4);">
+        <div style="width:100px;height:100px;background:white;border-radius:50%;box-shadow:0 0 60px #38bdf8,0 0 30px #a855f7;opacity:0.9;"></div>
+      </div>
+      <h1 class="page-title">JARVIS</h1>
+      <p class="page-subtitle">Your AI Assistant</p>
+      <div style="color:#94a3b8; font-size:1.5rem;">Designed by Tharun</div>
+    </div>
+  </div>
+
+  <!-- Slide 2 – What is Jarvis & How AI Works -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">What is Jarvis & How AI Works</h1>
+      <p class="page-subtitle">An AI voice assistant that helps with physics, general queries, and everyday tasks.</p>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-robot"></i> Uses NLP (spaCy) and OpenAI API to understand queries</div>
+        <div class="feature-item"><i class="fas fa-microphone"></i> Voice recognition and response</div>
+        <div class="feature-item"><i class="fas fa-chalkboard-teacher"></i> Step-by-step physics tutor and trigonometry solver</div>
+        <div class="feature-item"><i class="fas fa-globe"></i> Can execute tasks like opening websites, telling time, etc.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 – Physics & Trigonometry Tutor -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">Physics & Trigonometry Tutor</h1>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-calculator"></i> Recognizes numbers, units, and keywords from queries</div>
+        <div class="feature-item"><i class="fas fa-book"></i> Applies relevant formulas automatically</div>
+        <div class="feature-item"><i class="fas fa-step-forward"></i> Step-by-step solution for physics questions</div>
+        <div class="feature-item"><i class="fas fa-superscript"></i> Trigonometry queries like sin30°, cos45° with exact values</div>
+        <div class="feature-item"><i class="fas fa-code"></i> Example snippet: “Calculate force: F = m × a”</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4 – AI Types -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">AI Types</h1>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-brain"></i> ANI – Artificial Narrow Intelligence: Specialized for one task</div>
+        <div class="feature-item"><i class="fas fa-robot"></i> AGI – Artificial General Intelligence: Human-like problem solving</div>
+        <div class="feature-item"><i class="fas fa-robot"></i> ASI – Artificial Super Intelligence: Beyond human intelligence (future concept)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5 – GitHub / Code Access -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">GitHub / Code Access</h1>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-folder-open"></i> Project open for access and editing</div>
+        <div class="feature-item"><i class="fas fa-file-code"></i> All Python files can be updated for improvements</div>
+        <div class="feature-item"><i class="fas fa-lightbulb"></i> Encourages experimentation with AI, NLP, and physics logic</div>
+      </div>
+      <!-- QR Code for GitHub -->
+      <canvas id="github-qr" class="qr-code"></canvas>
+    </div>
+  </div>
+
+  <!-- Slide 6 – Other Features -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">Other Features</h1>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-globe"></i> Opens websites (YouTube, Google, Wikipedia)</div>
+        <div class="feature-item"><i class="fas fa-clock"></i> Gives current time</div>
+        <div class="feature-item"><i class="fas fa-robot"></i> Can run simple AI queries (OpenAI API)</div>
+        <div class="feature-item"><i class="fas fa-microphone"></i> Flexible voice command system</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7 – Future Improvements -->
+  <div class="slide-container">
+    <div class="overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="page-title">Future Improvements</h1>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-plus-circle"></i> Add more formulas for advanced physics</div>
+        <div class="feature-item"><i class="fas fa-superscript"></i> Expand trigonometry for all angles</div>
+        <div class="feature-item"><i class="fas fa-window-maximize"></i> Integrate GUI with buttons and animations</div>
+        <div class="feature-item"><i class="fas fa-star"></i> Add more smart assistant features (calendar, reminders)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  
+// Vanta background and QR Code setup
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    VANTA.NET({
+      el: "#vanta-canvas",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x38bdf8,
+      backgroundColor: 0x050a14,
+      backgroundAlpha: 0.0,
+      points: 12.00,
+      maxDistance: 22.00,
+      spacing: 18.00,
+      showDots: true
+    })
+  } catch(e){ console.log("Vanta failed to load"); }
+
+  // Generate QR Code
+  var qr = new QRious({
+    element: document.getElementById('github-qr'),
+    value: 'https://github.com/Hari-Prasad-7676/Jarvis-phy-AI',
+    size: 150
+  });
+
+  // Initialize VANTA for each slide individually
+  const slides = document.querySelectorAll('.slide-container');
+
+  slides.forEach((slide, index) => {
+    try {
+      const colors = [0x38bdf8, 0xa855f7, 0x14b8a6, 0xfacc15, 0xf472b6, 0x10b981, 0xf97316];
+      const effect = VANTA.NET({
+        el: slide,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: colors[index % colors.length],
+        backgroundColor: 0x050a14,
+        backgroundAlpha: 0.0,
+        points: 12 + index*2,
+        maxDistance: 20 + index*2,
+        spacing: 15 + index,
+        showDots: true
+      });
+      slide._vantaEffect = effect; // store reference if needed later
+    } catch(e){
+      console.log(`VANTA failed on slide ${index+1}`);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
